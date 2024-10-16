@@ -13,7 +13,7 @@ class album {
 
   late int? _yearInColor;
 
-  album.name(String title, int numero, int year, String image, String resume, GPS gps, String location, [int? yearInColor]) {
+  album({required String title, required int numero, required int year, required String image, required String resume, required GPS gps, required String location, int? yearInColor}) {
     _title = title;
     _numero = numero;
     _year = year;
