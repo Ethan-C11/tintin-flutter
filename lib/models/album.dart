@@ -1,43 +1,32 @@
 import 'dart:convert';
-
 import 'gps.dart';
 
-class album {
-  late String _title;
-  late int _numero;
-  late int _year;
-  late String _image;
-  late String _resume;
-  late GPS _gps;
-  late String _location;
+class Album {
+  String title;
+   int numero;
+   int year;
+   String image;
+   String resume;
+   GPS gps;
+   String location;
 
-  late int? _yearInColor;
+   int? yearInColor;
 
-  album({required String title, required int numero, required int year, required String image, required String resume, required GPS gps, required String location, int? yearInColor}) {
-    _title = title;
-    _numero = numero;
-    _year = year;
-    _image = image;
-    _resume = resume;
-    _gps = gps;
-    _location = location;
-    _yearInColor = yearInColor;
-  }
+   Album({required this.title, required this.numero, required this.year, required this.image, required this.resume, required this.gps, required this.location, this.yearInColor});
 
   String albumToString(){
-    return("Titre : $_title\n"
-        "Numero : $_numero\n"
-        "Année de sortie : $_year\n"
-        "Année de sortie en couleur : ${_yearInColor ?? "Pas de sortie en couleur"}\n"
-        "Image de couverture : $_image\n"
-        "Résumé : $_resume\n"
-        "Coordonnées GPS : lat ${_gps.getLatitude()}, long ${_gps.getLongitude()}\n"
-        "Localisation de l'histoire : $_location\n"
+    return("Titre : $title\n"
+        "Numero : $numero\n"
+        "Année de sortie : $year\n"
+        "Année de sortie en couleur : ${yearInColor ?? "Pas de sortie en couleur"}\n"
+        "Image de couverture : $image\n"
+        "Résumé : $resume\n"
+        "Coordonnées GPS : lat ${gps.getLatitude()}, long ${gps.getLongitude()}\n"
+        "Localisation de l'histoire : $location\n"
     );
   }
 
   String albumToJson(){
     return jsonEncode(this);
   }
-
 }
