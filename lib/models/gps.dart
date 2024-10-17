@@ -1,17 +1,20 @@
+import 'dart:convert';
+import 'package:flutter/services.dart';
+
 class GPS {
-  late double _latitude;
-  late double _longitude;
+  late double latitude;
+  late double longitude;
 
-  GPS(double lat, double long) {
-    _latitude = lat;
-    _longitude = long;
+  GPS({required this.latitude, required this.longitude});
+
+  factory GPS.fromJson(Map<String, dynamic> json) {
+    return GPS(
+      latitude: json['latitude'] as double,
+      longitude: json['longitude'] as double,
+    );
   }
 
-  double getLatitude(){
-    return _latitude;
-  }
-
-  double getLongitude(){
-    return _longitude;
+  static GPS parseGPS(String jsonBody) {
+    return (jsonDecode(jsonBody) as GPS);
   }
 }

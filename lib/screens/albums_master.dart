@@ -21,7 +21,9 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
   @override
   void initState() {
     _title = widget.title;
-    _albums = AlbumService.generateAlbums(10);
+    AlbumService.fetchAlbums().then((result) {
+      _albums = result;
+    });
     super.initState();
   }
 
@@ -30,7 +32,9 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
     onButtonClicked(int albumIndex) {
       Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AlbumDetails(album: _albums[albumIndex], albumIndex: albumIndex)));
+          MaterialPageRoute(
+              builder: (context) => AlbumDetails(
+                  album: _albums[albumIndex], albumIndex: albumIndex)));
     }
 
     return Scaffold(
@@ -46,7 +50,10 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
             padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
             itemCount: _albums.length,
             itemBuilder: (context, index) {
-              return AlbumPreview(album: _albums[index], onTap: onButtonClicked, albumIndex: index);
+              return AlbumPreview(
+                  album: _albums[index],
+                  onTap: onButtonClicked,
+                  albumIndex: index);
             },
             separatorBuilder: (context, index) => const SizedBox(
                   height: 10,

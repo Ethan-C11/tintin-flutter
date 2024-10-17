@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/services.dart';
 import 'package:tintin/models/album.dart';
 import 'package:tintin/models/gps.dart';
 import 'package:faker/faker.dart';
@@ -10,7 +11,7 @@ class AlbumService {
         year: int.tryParse(faker.date.year(minYear: 1950, maxYear: 2024)) ?? 2000,
         image: getRandomImage(),
         resume: faker.lorem.sentences(10).toString(),
-        gps: GPS(Random().nextDouble()*100, Random().nextDouble()*100),
+        gps: GPS(latitude:Random().nextDouble()*100, longitude:Random().nextDouble()*100),
         location: faker.address.country()))
     );
     return albums;
@@ -47,6 +48,10 @@ class AlbumService {
     return filePaths[Random().nextInt(filePaths.length)];
   }
 
+  static Future<List<Album>> fetchAlbums() async  {
+    String jsonBody = await rootBundle.loadString('data/albums-tintin.json');
+    return Album.parseAlbums(jsonBody);
+  }
 
 }
 
