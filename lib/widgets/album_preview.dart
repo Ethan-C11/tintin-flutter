@@ -2,10 +2,10 @@ import 'package:tintin/models/album.dart';
 import 'package:flutter/material.dart';
 
 class AlbumPreview extends StatelessWidget {
-  late Album album;
-  late Function onTap;
+  final Album album;
+  final Function onTap;
 
-  AlbumPreview({super.key, required this.album, required this.onTap});
+  const AlbumPreview({super.key, required this.album, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

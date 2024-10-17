@@ -43,7 +43,6 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
             padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
             itemCount: _albums.length,
             itemBuilder: (context, index) {
-              Album album = _albums[index];
               return AlbumPreview(album: _albums[index], onTap: onButtonClicked);
             },
             separatorBuilder: (context, index) => const SizedBox(
