@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 class GPS {
   late double latitude;
