@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tintin/models/album.dart';
+import 'package:tintin/widgets/album_preview.dart';
 import '../services/album_service.dart';
 
 class AlbumsMaster extends StatefulWidget {
@@ -25,7 +26,9 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
 
   @override
   Widget build(BuildContext context) {
-    onButtonClicked() {}
+    onButtonClicked(Album album) {
+
+    }
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -41,16 +44,7 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
             itemCount: _albums.length,
             itemBuilder: (context, index) {
               Album album = _albums[index];
-              return ListTile(
-                  leading: Image.asset(album.image),
-                  title: Text(album.title),
-                  textColor: Theme.of(context).colorScheme.inverseSurface,
-                  tileColor: const Color.fromARGB(75, 50, 50, 50),
-                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  onTap: () => onButtonClicked(),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ));
+              return AlbumPreview(album: _albums[index], onTap: onButtonClicked);
             },
             separatorBuilder: (context, index) => const SizedBox(
                   height: 10,
