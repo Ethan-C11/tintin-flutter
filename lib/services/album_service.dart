@@ -9,7 +9,7 @@ class AlbumService {
         numero: counter+1,
         year: int.tryParse(faker.date.year(minYear: 1950, maxYear: 2024)) ?? 2000,
         image: getRandomImage(),
-        resume: faker.lorem.sentence(),
+        resume: faker.lorem.sentences(10).toString(),
         gps: GPS(Random().nextDouble()*100, Random().nextDouble()*100),
         location: faker.address.country()))
     );
