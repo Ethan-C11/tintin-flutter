@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'gps.dart';
 
 class Album {
@@ -40,21 +39,19 @@ class Album {
 
   factory Album.fromJson(Map<String, dynamic> json) {
     return Album(
-      title: json['title'] as String,
+      title: json['titre'] as String,
       numero: json['numero'] as int,
-      year: json['year'] as int,
+      year: json['parution'] as int,
       image: json['image'] as String,
       resume: json['resume'] as String,
       gps: GPS.parseGPS(json['gps']),
-      location: json['location'] as String,
-      yearInColor: json['yearInColor'] as int,
+      location: json['lieu'] as String,
+      yearInColor: json['parutionEnCouleur'] as int?,
     );
   }
 
   static List<Album> parseAlbums(String jsonBody) {
-    final parsed = (jsonDecode(jsonBody) as List).cast<Map<String, dynamic>>();
-
+    final List<dynamic> parsed = jsonDecode(jsonBody);
     return parsed.map<Album>((json) => Album.fromJson(json)).toList();
   }
-
 }

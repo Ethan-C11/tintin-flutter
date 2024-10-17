@@ -18,7 +18,7 @@ class AlbumDetails extends StatelessWidget {
           title: Text(album.title),
           centerTitle: true,
         ),
-        body: Container(
+        body: SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Center(
               child: SingleChildScrollView(

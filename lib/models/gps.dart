@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/services.dart';
 
 class GPS {
   late double latitude;
@@ -14,7 +13,7 @@ class GPS {
     );
   }
 
-  static GPS parseGPS(String jsonBody) {
-    return (jsonDecode(jsonBody) as GPS);
+  static GPS parseGPS(String body) {
+    return GPS(latitude: double.parse(body.split(',')[0]), longitude: double.parse(body.split(',')[1]));
   }
 }

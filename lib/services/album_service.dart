@@ -49,7 +49,7 @@ class AlbumService {
   }
 
   static Future<List<Album>> fetchAlbums() async  {
-    String jsonBody = await rootBundle.loadString('data/albums-tintin.json');
+    final String jsonBody = await rootBundle.loadString('data/albums-tintin.json');
     return Album.parseAlbums(jsonBody);
   }
 
