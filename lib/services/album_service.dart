@@ -6,7 +6,7 @@ import 'package:faker/faker.dart';
 class AlbumService {
   static  List<Album> generateAlbums(int length) {
     List<Album> albums = (List<Album>.generate(length, (int counter) => Album(title: "Tintin au ${faker.address.country()}",
-        numero: counter,
+        numero: counter+1,
         year: int.tryParse(faker.date.year(minYear: 1950, maxYear: 2024)) ?? 2000,
         image: getRandomImage(),
         resume: faker.lorem.sentence(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tintin/models/album.dart';
+import 'package:tintin/screens/album_details.dart';
 import 'package:tintin/widgets/album_preview.dart';
 import '../services/album_service.dart';
 
@@ -26,8 +27,10 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
 
   @override
   Widget build(BuildContext context) {
-    onButtonClicked(Album album) {
-
+    onButtonClicked(int albumIndex) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AlbumDetails(album: _albums[albumIndex], albumIndex: albumIndex)));
     }
 
     return Scaffold(
@@ -43,7 +46,7 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
             padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
             itemCount: _albums.length,
             itemBuilder: (context, index) {
-              return AlbumPreview(album: _albums[index], onTap: onButtonClicked);
+              return AlbumPreview(album: _albums[index], onTap: onButtonClicked, albumIndex: index);
             },
             separatorBuilder: (context, index) => const SizedBox(
                   height: 10,
