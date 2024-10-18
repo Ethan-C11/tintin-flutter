@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:tintin/providers/reading_list_provider.dart';
 import 'package:tintin/screens/albums_master.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    ChangeNotifierProvider(
+        create: (context) => ReadingListProvider(),
+        child: const MainApp()
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -15,7 +22,7 @@ class MainApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
           useMaterial3: true,
         ),
-      home: const AlbumsMaster(title: "Albums")
+        home: const AlbumsMaster(title: "Albums")
     );
   }
 }
