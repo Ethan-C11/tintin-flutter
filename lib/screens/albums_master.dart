@@ -14,23 +14,20 @@ class AlbumsMaster extends StatefulWidget {
 }
 
 class _AlbumsMasterState extends State<AlbumsMaster> {
-   List<Album> _albums = [];
+  List<Album> _albums = [];
+  final List<Album> _readingList = [];
 
   late String _title;
 
-  Future<void> _fetchAlbums() async{
-
-    try{
+  Future<void> _fetchAlbums() async {
+    try {
       final result = await AlbumService.fetchAlbums();
       setState(() {
         _albums = result;
       });
-    }catch(e){
+    } catch (e) {
       print(e);
     }
-
-
-
   }
 
   @override
@@ -42,6 +39,31 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
     super.initState();
   }
 
+  void addOrRemoveFromReadingList(int index) {
+
+    Album album = _albums[index];
+    int indexOfAlbum = _readingList.indexOf(album);
+    if (indexOfAlbum == -1) {
+      setState(() {
+        _readingList.add(album);
+      });
+    } else {
+      setState(() {
+        _readingList.removeAt(indexOfAlbum);
+      });
+    }
+  }
+
+  bool isInReadingList(int index) {
+    Album album = _albums[index];
+    int indexOfAlbum = _readingList.indexOf(album);
+    if (indexOfAlbum == -1) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     onButtonClicked(int albumIndex) {
@@ -49,7 +71,10 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
           context,
           MaterialPageRoute(
               builder: (context) => AlbumDetails(
-                  album: _albums[albumIndex], albumIndex: albumIndex)));
+                    album: _albums[albumIndex],
+                    albumIndex: albumIndex,
+                    addOrRemoveFromReadingList: addOrRemoveFromReadingList,
+                  )));
     }
 
     return Scaffold(
@@ -66,9 +91,11 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
             itemCount: _albums.length,
             itemBuilder: (context, index) {
               return AlbumPreview(
-                  album: _albums[index],
-                  onTap: onButtonClicked,
-                  albumIndex: index);
+                album: _albums[index],
+                onTap: onButtonClicked,
+                albumIndex: index,
+                isInReadingList: isInReadingList,
+              );
             },
             separatorBuilder: (context, index) => const SizedBox(
                   height: 10,

@@ -48,7 +48,6 @@ class Album {
       location: json['lieu'] as String,
       yearInColor: json['parutionEnCouleur'] as int?,
     );
-    print(album);
     return album;
   }
 }
