@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tintin/models/album.dart';
+import 'package:tintin/providers/reading_list_provider.dart';
 import 'package:tintin/screens/album_details.dart';
 import 'package:tintin/widgets/album_preview.dart';
 import '../services/album_service.dart';
@@ -14,8 +15,7 @@ class AlbumsMaster extends StatefulWidget {
 }
 
 class _AlbumsMasterState extends State<AlbumsMaster> {
-  List<Album> _albums = [];
-  final List<Album> _readingList = [];
+  final AlbumProvider _readingListProvider = AlbumProvider();
 
   late String _title;
 
@@ -23,7 +23,7 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
     try {
       final result = await AlbumService.fetchAlbums();
       setState(() {
-        _albums = result;
+        _readingListProvider.setAlbums(result);
       });
     } catch (e) {
       print(e);
@@ -41,22 +41,22 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
 
   void addOrRemoveFromReadingList(int index) {
 
-    Album album = _albums[index];
-    int indexOfAlbum = _readingList.indexOf(album);
+    Album album = _readingListProvider.getAlbumByIndex(index);
+    int indexOfAlbum = _readingListProvider.getReadingList().indexOf(album);
     if (indexOfAlbum == -1) {
       setState(() {
-        _readingList.add(album);
+        _readingListProvider.addToReadingList(album);
       });
     } else {
       setState(() {
-        _readingList.removeAt(indexOfAlbum);
+        _readingListProvider.removeFromReadingList(album);
       });
     }
   }
 
   bool isInReadingList(int index) {
-    Album album = _albums[index];
-    int indexOfAlbum = _readingList.indexOf(album);
+    Album album = _readingListProvider.getAlbumByIndex(index);
+    int indexOfAlbum = _readingListProvider.getReadingList().indexOf(album);
     if (indexOfAlbum == -1) {
       return false;
     } else {
@@ -71,7 +71,7 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
           context,
           MaterialPageRoute(
               builder: (context) => AlbumDetails(
-                    album: _albums[albumIndex],
+                    album: _readingListProvider.getAlbumByIndex(albumIndex),
                     albumIndex: albumIndex,
                     addOrRemoveFromReadingList: addOrRemoveFromReadingList,
                   )));
@@ -88,10 +88,10 @@ class _AlbumsMasterState extends State<AlbumsMaster> {
       body: Center(
         child: ListView.separated(
             padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-            itemCount: _albums.length,
+            itemCount: _readingListProvider.getAlbums().length,
             itemBuilder: (context, index) {
               return AlbumPreview(
-                album: _albums[index],
+                album: _readingListProvider.getAlbumByIndex(index),
                 onTap: onButtonClicked,
                 albumIndex: index,
                 isInReadingList: isInReadingList,

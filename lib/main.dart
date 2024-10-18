@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-        create: (context) => ReadingListProvider(),
+        create: (context) => AlbumProvider(),
         child: const MainApp()
     ),
   );
