@@ -38,7 +38,7 @@ class Album {
   }
 
   factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
+    Album album = Album(
       title: json['titre'] as String,
       numero: json['numero'] as int,
       year: json['parution'] as int,
@@ -48,10 +48,7 @@ class Album {
       location: json['lieu'] as String,
       yearInColor: json['parutionEnCouleur'] as int?,
     );
-  }
-
-  static List<Album> parseAlbums(String jsonBody) {
-    final List<dynamic> parsed = jsonDecode(jsonBody);
-    return parsed.map<Album>((json) => Album.fromJson(json)).toList();
+    print(album);
+    return album;
   }
 }

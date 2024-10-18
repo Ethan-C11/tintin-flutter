@@ -14,16 +14,31 @@ class AlbumsMaster extends StatefulWidget {
 }
 
 class _AlbumsMasterState extends State<AlbumsMaster> {
-  List<Album> _albums = [];
+   List<Album> _albums = [];
 
   late String _title;
+
+  Future<void> _fetchAlbums() async{
+
+    try{
+      final result = await AlbumService.fetchAlbums();
+      setState(() {
+        _albums = result;
+      });
+    }catch(e){
+      print(e);
+    }
+
+
+
+  }
 
   @override
   void initState() {
     _title = widget.title;
-    AlbumService.fetchAlbums().then((result) {
-      _albums = result;
-    });
+
+    _fetchAlbums();
+
     super.initState();
   }
 

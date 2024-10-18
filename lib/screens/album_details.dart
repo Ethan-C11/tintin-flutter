@@ -40,7 +40,7 @@ class AlbumDetails extends StatelessWidget {
                   }),
                   Text('Numéro : ${album.numero}', textAlign: TextAlign.center),
                   Image.asset(
-                    album.image,
+                    "images/${album.image}",
                     height: 350,
                     alignment: Alignment.center,
                   )

@@ -11,7 +11,7 @@ class AlbumPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
   return ListTile(
-      leading: Image.asset(album.image),
+      leading: Image.asset("images/${album.image}"),
       title: Text(album.title),
       textColor: Theme.of(context).colorScheme.inverseSurface,
       tileColor: const Color.fromARGB(75, 50, 50, 50),

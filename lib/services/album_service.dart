@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:tintin/models/album.dart';
@@ -48,9 +49,15 @@ class AlbumService {
     return filePaths[Random().nextInt(filePaths.length)];
   }
 
+  static List<Album> parseAlbums(String jsonBody) {
+    final List<dynamic> parsed = jsonDecode(jsonBody);
+    return parsed.map<Album>((json) => Album.fromJson(json)).toList();
+  }
+
   static Future<List<Album>> fetchAlbums() async  {
     final String jsonBody = await rootBundle.loadString('data/albums-tintin.json');
-    return Album.parseAlbums(jsonBody);
+
+    return parseAlbums(jsonBody);
   }
 
 }
